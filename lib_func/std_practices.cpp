@@ -259,7 +259,8 @@ void STD::practices_map()
     }
     
     // ultimap
-    std::multimap<char,int> mymm;
+    /**定义map　有俩种方式，　默认方式　是按key从小到大排序**/
+    std::multimap<char,int, std::greater<char>> mymm;//从大到小
 
     mymm.insert (std::make_pair('x',10));
     mymm.insert (std::make_pair('y',20));
@@ -296,6 +297,58 @@ void STD::practices_map()
     for(auto iter = mymm.cbegin(); iter!= mymm.cend(); iter++)
     {
         cout<<"["<<iter->first<<" : "<<iter->second<<"]\n";
+    }
+    mymm.insert(std::make_pair('a',1000));
+    mymm.insert(std::make_pair('b',2000));
+    mymm.insert(std::make_pair('c',3000));
+
+    // sort 一个 map by the vallue
+    auto comp = [](pair<char, int>& a,
+              pair<char, int>& b) ->bool
+        {
+            return a.second<b.second;
+        };
+    vector<pair<char, int>> temp;
+    for(auto iter = mymm.begin(); iter != mymm.end(); iter++)
+    {
+        temp.push_back(*iter);
+    }
+    cout<<"before sorting \n";
+    for(auto& v : temp)
+    {
+        cout<<"["<<v.first<<" : "<<v.second<<"]\n";
+    }    
+    sort(temp.begin(), temp.end(),comp);
+    cout<<"after sorting \n";
+    for(auto& v : temp)
+    {
+        cout<<"["<<v.first<<" : "<<v.second<<"]\n";
+    }
+    
+    // 按照同一排序方式，同时排序多个向量
+    vector<int> vec1 = {2,1,5,3};
+    vector<char> vec2 = {'y','h','c','d'};
+    vector<int> vec3 = {10,20,30,40};
+    vector<std::pair<int, std::pair<char, int>>> vec_sort; 
+    auto comp2 = [](pair<int, std::pair<char, int>>& a,
+              pair<int,  std::pair<char, int>>& b) ->bool
+        {
+            return a.first<b.first;
+        };   
+    for(uint i = 0; i< vec1.size(); i++)
+    {
+        vec_sort.push_back(make_pair(vec1[i],make_pair(vec2[i],vec3[i]))); 
+    }    
+    cout<<"before sorting \n";
+    for(auto& v : vec_sort)
+    {
+        cout<<"["<<v.first<<" : "<<v.second.first<<" : "<<v.second.second<<"]\n";
+    }    
+    sort(vec_sort.begin(), vec_sort.end(),comp2);
+    cout<<"after sorting \n";
+    for(auto& v : vec_sort)
+    {
+        cout<<"["<<v.first<<" : "<<v.second.first<<" : "<<v.second.second<<"]\n";
     }
 
 }
