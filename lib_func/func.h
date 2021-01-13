@@ -7,10 +7,4 @@ void func_test();
 
 
 
-
-
-
-
-
-
 #endif

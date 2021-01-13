@@ -2,7 +2,7 @@
 
 int main()
 {
-    STD obj;
-    obj.practices_list();
-    return 1;
+  STD obj;
+  obj.practices_list();
+  return 1;
 }

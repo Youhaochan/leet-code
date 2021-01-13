@@ -10,6 +10,7 @@ public:
 	void practices_map();
 	void practices_set();
 	void practices_list();
+	void practices_queue();
 	void practices_thread();
 };
 #endif

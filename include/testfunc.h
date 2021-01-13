@@ -7,18 +7,9 @@
 class testfunc
 {
 public:
-	// testfunc();
-	// ~testfunc();
-	void outputworld();
-
-	
+  // testfunc();
+  // ~testfunc();
+  void outputworld();
 };
-
-
-
-
-
-
-
 
 #endif

@@ -34,6 +34,7 @@ set(HEADERS
     include/huawei_code.h
     include/leet_code.h
     include/std_practices.h
+    include/data_structure.h
 
 )
 
@@ -42,6 +43,7 @@ set(SOURCES
   lib_func/huawei_code.cpp
   lib_func/leet_code.cpp
   lib_func/std_practices.cpp
+  lib_func/data_structure.cpp
 )
 
 set(HEADERS2
@@ -59,11 +61,14 @@ add_executable(main src/main.cpp)
 add_executable(huawei_code_main src/huawei_code_main.cpp)
 add_executable(leet_code_main src/leet_code_main.cpp)
 add_executable(std_practices_main src/std_practices_main.cpp)
+add_executable(test_data_structure src/test_data_structure.cpp)
 ##如果没有用target_link_libraries　这个语句进行链接不同的库，就会报错说没有定义函数
 target_link_libraries(main ${catkin_LIBRARIES}${PROJECT_NAME})
 target_link_libraries(huawei_code_main ${catkin_LIBRARIES}${PROJECT_NAME})
 target_link_libraries(leet_code_main ${catkin_LIBRARIES}${PROJECT_NAME})
 target_link_libraries(std_practices_main ${catkin_LIBRARIES}${PROJECT_NAME})
+target_link_libraries(std_practices_main ${catkin_LIBRARIES}${PROJECT_NAME})
+target_link_libraries(test_data_structure ${catkin_LIBRARIES}${PROJECT_NAME})
 #有俩种方法来链接一个库。　上面三行代码是一种下面两是一种
 #add_library( funcshared SHARED lib_func/func.cpp )
 #target_link_libraries (main funcshared)
