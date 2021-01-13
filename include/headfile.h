@@ -18,6 +18,8 @@
 #include <sstream>
 #include <algorithm>
 #include <map>
+#include <set>
+#include <list>
 using namespace Eigen;
 using namespace std;
 

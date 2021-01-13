@@ -3,6 +3,6 @@
 int main()
 {
     STD obj;
-    obj.practices_map();
+    obj.practices_list();
     return 1;
 }

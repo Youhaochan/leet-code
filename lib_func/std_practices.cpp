@@ -3,6 +3,24 @@
 void
 STD::practices_string()
 {
+    /**
+     * @brief introduce some method
+     * Iterators 
+     * begin, ....
+     * 
+     * Capacity
+     * size, length, resize, clear, empty
+     * 
+     * Element access
+     * Operator [], at(), back(), front()
+     * 
+     * Modifiers
+     * Operator +=, append, push_back, assign, insert, erase
+     * replace, swap, pop_back
+     * 
+     * String operation
+     * c_str, find()-return std::string::npos if no match , rfind, substr
+     */
     string test("youhaochan is from guangdong province heyuan city");
     for(auto iter = test.begin(); iter!= test.end(); iter++) //cbegin is const iterator
     {
@@ -151,6 +169,25 @@ void STD::practices_vector()
 
 void STD::practices_map()
 {
+    /**
+     * @brief 
+     * Iterator:
+     * begin, cbegin,...rbegin
+     * 
+     * Capacity
+     * empty(), size()
+     * 
+     * Element access
+     * operator[], at
+     * 
+     * Modifiers
+     * insert, erase, swap, clear
+     * 
+     * Operations
+     * find, count, lower_bound, upper_bound
+     * 
+     * 
+     */
     //initilise
     std::map<int,char> m;
     m[1] = 'y';
@@ -350,5 +387,191 @@ void STD::practices_map()
     {
         cout<<"["<<v.first<<" : "<<v.second.first<<" : "<<v.second.second<<"]\n";
     }
+}
 
+void STD::practices_set()
+{
+    /**
+     * @brief Introduce its method
+     * Iterators
+     * begin, cbegin, rbegin
+     * 
+     * Capacity
+     * empty, size
+     * 
+     * Modifiers
+     * insert, erase, swap, clear
+     * 
+     * Operations
+     * find, count, lower_bound
+     */
+    // no operator[]
+    // using find the find the element
+    // using iterator to access the data
+    // 
+    std::set<int, std::greater<int>> myset;
+    for(int i = -2; i<3; i++)
+    {
+        myset.insert(i);
+    }
+    if(myset.find(1) != myset.end())
+    {
+        cout<<"element exists in the set \n";
+    }
+    for(int i =-5; i<5; i++)
+    {
+        if(myset.count(i) != 0)
+        {
+            cout<<i<<" is in the set\n";
+        }
+        else
+        {
+            cout<<i<<" is not in the set \n";
+        }
+        
+    }
+    auto success = myset.insert(1);
+    if(success.second != false)
+    {
+        cout<<"insert new element successfully\n";
+    }
+    else
+    {
+        cout<<"fail to insert the element\n";
+    }
+    
+
+}
+
+void STD::practices_list()
+{
+    std::list<int> my_list = {1,2,3,4,5};
+    // member function
+    /*
+      iterators  
+        begin cbegin rbegin rend ..
+    */
+    /*
+    capacity
+        my_list.size(), empty(),
+    */
+   /*
+   * access element
+   * my_list.front(), back()
+   * 
+   * */
+    /**
+     * modifiers
+     * assign, push_front, push_back, pop_front, pop_back
+     * insert, erase, swap, resize, clear
+    * unique 和 remove 都可以去除元素，　unique是自动去除相等的元素
+    * remove 则是去除指定元素 remove_if则是去除满足if条件的元素
+   /**
+    * operations
+    * splice, remove, remove_if, unique, merge, sort, reverse
+    * 
+   */
+    // splice
+    // Transfers elements from x into the container, inserting them at position.
+    std::list<int> mylist1, mylist2;
+    std::list<int>::iterator it;
+
+    // set some initial values:
+    for (int i=1; i<=4; ++i)
+        mylist1.push_back(i);      // mylist1: 1 2 3 4
+
+    for (int i=1; i<=3; ++i)
+        mylist2.push_back(i*10);   // mylist2: 10 20 30
+
+    it = mylist1.begin();
+    ++it;                         // points to 2
+
+    mylist1.splice (it, mylist2);   // mylist1: 1 10 20 30 2 3 4
+                                    // mylist2 (empty)
+                                    // "it" still points t
+    for(const int& d : mylist1)
+    {
+        cout<<d<<" ";
+    }
+    cout<<"\n";
+    mylist1.insert(mylist1.begin(),20);
+    mylist1.insert(mylist1.begin(),20);
+    //unique() is to remove the repeated elements
+    cout<<"before using unique to remove the same element\n";
+    for(const int& d : mylist1)
+    {
+        cout<<d<<" ";
+    }
+    cout<<"\n";   
+    cout<<"after using unique to remove the same element\n";
+    mylist1.sort();
+    mylist1.unique(); // 使用unique　之前要先排序""
+    for(const int& d : mylist1)
+    {
+        cout<<d<<" ";
+    }
+    cout<<"\n";    
+    cout<<"inverse the list\n";
+    mylist1.reverse();
+
+    // 使用unique去除相近的元素
+    auto is_similar = [](const int& a, const int& b) ->bool
+    {
+        return(abs(a-b)<5);
+    };
+    for(uint i = 0; i<10; i++)
+    {
+        mylist1.push_back(i);
+    }
+    mylist1.sort();
+    cout<<"before using unique to remove the same element\n";
+    for(const int& d : mylist1)
+    {
+        cout<<d<<" ";
+    }
+    cout<<"\n";   
+    cout<<"after using unique to remove the near element\n";
+    // method one
+    // mylist1.unique(is_similar); // 使用unique　之前要先排序""
+    
+    // method two
+    // we can also use the unique method in algorithm to remove
+    // similar elements;
+    /**
+     * unique 默认的comp函数　是当俩个元素相等时候返回ｔｒｕｅ
+     * 但是我们可以传入自定义的比较函数
+     * 
+     */
+    mylist1.erase(std::unique(mylist1.begin(), //适用所有container
+                  mylist1.end(), is_similar), mylist1.end());
+    for(const int& d : mylist1)
+    {
+        cout<<d<<" ";
+    }
+    cout<<"\n";        
+    
+    mylist1.push_back(100);
+    mylist1.push_back(200);
+    mylist1.push_back(300);
+    mylist1.remove(100);
+    mylist1.remove(200);
+    for(const int& d : mylist1)
+    {
+        cout<<d<<" ";
+    }
+    cout<<"\n"; 
+    mylist1.push_back(1000);
+    mylist1.push_back(2000);
+    mylist1.push_back(3000); 
+    auto comp_remove = [](const int& a) ->bool
+    {
+        return(a>1000);
+    };
+    mylist1.remove_if(comp_remove);
+    cout<<"remove the element bigger than 1000\n";
+    for(const int& d : mylist1)
+    {
+        cout<<d<<" ";
+    }
+    cout<<"\n"; 
 }
