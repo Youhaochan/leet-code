@@ -227,3 +227,144 @@ void Link::reverse()
   q->next = p;
   head->next = q;
 }
+
+/***********************
+ * 头尾指针,双链表
+ * *********************
+ * *********************
+ * *******************/
+
+two_direction_link::two_direction_link(int k)
+{
+  size_k = k;
+  head = new Node;
+  tail = new Node;
+  tail->next = NULL;
+  tail->prev = NULL;
+  head = tail;
+  num_k = 0;
+}
+
+/** Adds an item at the front of Deque. Return true if the operation is successful. */
+bool two_direction_link::insertFront(int value)
+{
+  if (num_k == size_k)
+    return false;
+  num_k++;
+  Node *new_node = new Node;
+  new_node->data = value;
+  if (head && head->next) //链表中有至少一个节点
+  {
+    head->next->prev = new_node;
+    new_node->next = head->next;
+    new_node->prev = head;
+  }
+  else if (head && !head->next) //链表中没有存在的节点
+  {
+    new_node->next = NULL;
+    new_node->prev = head;
+    tail = new_node;
+  }
+  head->next = new_node;
+  return true;
+}
+
+/** Adds an item at the rear of Deque. Return true if the operation is successful. */
+bool two_direction_link::insertLast(int value)
+{
+  if (!head)
+    return false;
+  if (num_k == size_k)
+    return false;
+  num_k++;
+  Node *new_node = new Node;
+  new_node->data = value;
+  new_node->next = NULL;
+  if (!head->next) //链表中没有节点存在
+  {
+    head->next = new_node;
+    new_node->prev = head;
+    tail = new_node;
+  }
+  else
+  {
+    new_node->prev = tail;
+    tail->next = new_node;
+    tail = new_node;
+  }
+
+  return true;
+}
+
+/** Deletes an item from the front of Deque. Return true if the operation is successful. */
+bool two_direction_link::deleteFront()
+{
+  if (num_k == 0)
+    return false;
+  if (head && head->next && !head->next->next) //如果链表中之后一个节点
+  {
+    Node *delete_node = head->next;
+    head->next = NULL;
+    tail = head;
+    tail->prev = NULL;
+    delete delete_node;
+    delete_node = NULL;
+    num_k--;
+    return true;
+  }
+  else if (head && head->next && head->next->next) //如果链表中有至少两个的节点
+  {
+    Node *delete_node = head->next;
+    delete_node->next->prev = head;
+    head->next = delete_node->next;
+    delete delete_node;
+    delete_node = NULL;
+    num_k--;
+    return true;
+  }
+  return false;
+}
+
+/** Deletes an item from the rear of Deque. Return true if the operation is successful. */
+bool two_direction_link::deleteLast()
+{
+  if (!head || num_k == 0)
+    return false;
+  num_k--;
+  Node *delete_node = tail;
+  tail = tail->prev;
+  tail->next = NULL; //这里注意要指向NULL,不然一会删除最后一个节点后
+                     //tail就会指向一个已经删除了的指针导致报错
+
+  delete delete_node;
+  delete_node = NULL;
+  return true;
+}
+
+/** Get the front item from the deque. */
+int two_direction_link::getFront()
+{
+  if (head && head->next)
+    return head->next->data;
+  return -1;
+}
+
+/** Get the last item from the deque. */
+int two_direction_link::getRear()
+{
+  if (tail->prev)
+    return tail->data;
+  return -1;
+}
+
+/** Checks whether the circular deque is empty or not. */
+bool two_direction_link::isEmpty()
+{
+  return num_k == 0;
+}
+
+/** Checks whether the circular deque is full or not. */
+bool two_direction_link::isFull()
+{
+  return num_k == size_k;
+}

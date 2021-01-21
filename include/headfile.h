@@ -20,6 +20,8 @@
 #include <map>
 #include <set>
 #include <list>
+#include <stack>
+#include <queue>
 using namespace Eigen;
 using namespace std;
 

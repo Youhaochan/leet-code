@@ -34,72 +34,6 @@ void STD::practices_string()
   cout << "test the difference of str.size() and str.length()\n "
        << "test.size() = " << test.size()
        << "\n test.length() = " << test.length() << endl;
-
-  // access data
-  test.at(10) = 5; //at()  return reference
-  test.back();
-  test.front(); // both return reference
-
-  // modifiers
-  std::string str;
-  std::string str2 = "Writing ";
-  std::string str3 = "print 10 and then 5 more";
-  // Extends the string by appending additional characters at the end of its current value:
-  str.append(str2);       // "Writing "
-  str.append(str3, 6, 3); // "10 "
-
-  std::string base = "The quick brown fox jumps over a lazy dog.";
-  // Assigns a new value to the string, replacing its current contents.
-  str.assign(base);
-  std::cout << str << '\n';
-  str.assign(base, 10, 9);
-  std::cout << str << '\n'; // "brown fox"
-  // insert replace erase
-  str.clear();
-  str = "yyyyhhhhcccc";
-  str.insert(0, "ooo");
-  cout << str << "\n";
-  str.replace(str.begin() + 4, str.begin() + 8, "replace");
-  // str.replace(4, 8,"replace"); ok
-  cout << str << "\n";
-  str.erase(str.begin(), str.begin() + 4);
-  // str.erase(0,4); ok
-  str.pop_back(); // delete the last character
-  cout << str << endl;
-
-  //string operations
-  char *c = new char[str.size() + 1];
-  strcpy(c, str.c_str());
-  cout << c << endl;
-  delete[] c;
-
-  //find
-  // size_t find (const string& str, size_t pos = 0) const noexcept;
-  // size_t find (const char* s, size_t pos = 0) const;
-  // size_t find (const char* s, size_t pos, size_type n) const;
-  // size_t find (char c, size_t pos = 0) const noexcept;
-  // return value
-  // The position of the first character of the first match.
-  // If no matches were found, the function returns string::npos.
-  str.clear();
-  str = "youhaohaochanchan";
-  std::size_t found = str.find("hao"); //从前往后查找
-  if (found != std::string::npos)
-    std::cout << "first 'hao' found at: " << found << '\n';
-  found = str.rfind("hao"); //从后往前查找
-  if (found != std::string::npos)
-    std::cout << "first 'hao' found at (searching from the back): " << found << '\n';
-  found = str.find("hai"); //查找的字符串要全部匹配的上，不然就不算是找到
-  if (found != std::string::npos)
-    std::cout << "first 'hai' found at: " << found << '\n';
-  else
-    std::cout << "hai is not found" << endl;
-
-  test.resize(100);
-  cout << "test the difference of str.size() and str.length()\n "
-       << "test.size() = " << test.size()
-       << "\n test.length() = " << test.length() << endl;
-
   // access data
   test.at(10) = 5; //at()  return reference
   test.back();
@@ -552,76 +486,35 @@ void STD::practices_set()
       cout << i << " is not in the set \n";
     }
   }
-
-  void STD::practices_set()
+  auto success = myset.insert(1);
+  if (success.second != false)
   {
-    /**
-     * @brief Introduce its method
-     * Iterators
-     * begin, cbegin, rbegin
-     * 
-     * Capacity
-     * empty, size
-     * 
-     * Modifiers
-     * insert, erase, swap, clear
-     * 
-     * Operations
-     * find, count, lower_bound
-     */
-    // no operator[]
-    // using find the find the element
-    // using iterator to access the data
-    //
-    std::set<int, std::greater<int>> myset;
-    for (int i = -2; i < 3; i++)
-    {
-      myset.insert(i);
-    }
-    if (myset.find(1) != myset.end())
-    {
-      cout << "element exists in the set \n";
-    }
-    for (int i = -5; i < 5; i++)
-    {
-      if (myset.count(i) != 0)
-      {
-        cout << i << " is in the set\n";
-      }
-      else
-      {
-        cout << i << " is not in the set \n";
-      }
-    }
-    auto success = myset.insert(1);
-    if (success.second != false)
-    {
-      cout << "insert new element successfully\n";
-    }
-    else
-    {
-      cout << "fail to insert the element\n";
-    }
+    cout << "insert new element successfully\n";
   }
-
-  void STD::practices_list()
+  else
   {
-    std::list<int> my_list = {1, 2, 3, 4, 5};
-    // member function
-    /*
+    cout << "fail to insert the element\n";
+  }
+}
+
+void STD::practices_list()
+{
+  std::list<int> my_list = {1, 2, 3, 4, 5};
+  // member function
+  /*
       iterators  
         begin cbegin rbegin rend ..
     */
-    /*
+  /*
     capacity
         my_list.size(), empty(),
     */
-    /*
+  /*
    * access element
    * my_list.front(), back()
    * 
    * */
-    /**
+  /**
      * modifiers
      * assign, push_front, push_back, pop_front, pop_back
      * insert, erase, swap, resize, clear
@@ -632,106 +525,106 @@ void STD::practices_set()
     * splice, remove, remove_if, unique, merge, sort, reverse
     * 
    */
-    // splice
-    // Transfers elements from x into the container, inserting them at position.
-    std::list<int> mylist1, mylist2;
-    std::list<int>::iterator it;
+  // splice
+  // Transfers elements from x into the container, inserting them at position.
+  std::list<int> mylist1, mylist2;
+  std::list<int>::iterator it;
 
-    // set some initial values:
-    for (int i = 1; i <= 4; ++i)
-      mylist1.push_back(i); // mylist1: 1 2 3 4
+  // set some initial values:
+  for (int i = 1; i <= 4; ++i)
+    mylist1.push_back(i); // mylist1: 1 2 3 4
 
-    for (int i = 1; i <= 3; ++i)
-      mylist2.push_back(i * 10); // mylist2: 10 20 30
+  for (int i = 1; i <= 3; ++i)
+    mylist2.push_back(i * 10); // mylist2: 10 20 30
 
-    it = mylist1.begin();
-    ++it; // points to 2
+  it = mylist1.begin();
+  ++it; // points to 2
 
-    mylist1.splice(it, mylist2); // mylist1: 1 10 20 30 2 3 4
-                                 // mylist2 (empty)
-                                 // "it" still points t
-    for (const int &d : mylist1)
-    {
-      cout << d << " ";
-    }
-    cout << "\n";
-    mylist1.insert(mylist1.begin(), 20);
-    mylist1.insert(mylist1.begin(), 20);
-    //unique() is to remove the repeated elements
-    cout << "before using unique to remove the same element\n";
-    for (const int &d : mylist1)
-    {
-      cout << d << " ";
-    }
-    cout << "\n";
-    cout << "after using unique to remove the same element\n";
-    mylist1.sort();
-    mylist1.unique(); // 使用unique　之前要先排序""
-    for (const int &d : mylist1)
-    {
-      cout << d << " ";
-    }
-    cout << "\n";
-    cout << "inverse the list\n";
-    mylist1.reverse();
+  mylist1.splice(it, mylist2); // mylist1: 1 10 20 30 2 3 4
+                               // mylist2 (empty)
+                               // "it" still points t
+  for (const int &d : mylist1)
+  {
+    cout << d << " ";
+  }
+  cout << "\n";
+  mylist1.insert(mylist1.begin(), 20);
+  mylist1.insert(mylist1.begin(), 20);
+  //unique() is to remove the repeated elements
+  cout << "before using unique to remove the same element\n";
+  for (const int &d : mylist1)
+  {
+    cout << d << " ";
+  }
+  cout << "\n";
+  cout << "after using unique to remove the same element\n";
+  mylist1.sort();
+  mylist1.unique(); // 使用unique　之前要先排序""
+  for (const int &d : mylist1)
+  {
+    cout << d << " ";
+  }
+  cout << "\n";
+  cout << "inverse the list\n";
+  mylist1.reverse();
 
-    // 使用unique去除相近的元素
-    auto is_similar = [](const int &a, const int &b) -> bool {
-      return (abs(a - b) < 5);
-    };
-    for (uint i = 0; i < 10; i++)
-    {
-      mylist1.push_back(i);
-    }
-    mylist1.sort();
-    cout << "before using unique to remove the same element\n";
-    for (const int &d : mylist1)
-    {
-      cout << d << " ";
-    }
-    cout << "\n";
-    cout << "after using unique to remove the near element\n";
-    // method one
-    // mylist1.unique(is_similar); // 使用unique　之前要先排序""
+  // 使用unique去除相近的元素
+  auto is_similar = [](const int &a, const int &b) -> bool {
+    return (abs(a - b) < 5);
+  };
+  for (uint i = 0; i < 10; i++)
+  {
+    mylist1.push_back(i);
+  }
+  mylist1.sort();
+  cout << "before using unique to remove the same element\n";
+  for (const int &d : mylist1)
+  {
+    cout << d << " ";
+  }
+  cout << "\n";
+  cout << "after using unique to remove the near element\n";
+  // method one
+  // mylist1.unique(is_similar); // 使用unique　之前要先排序""
 
-    // method two
-    // we can also use the unique method in algorithm to remove
-    // similar elements;
-    /**
+  // method two
+  // we can also use the unique method in algorithm to remove
+  // similar elements;
+  /**
      * unique 默认的comp函数　是当俩个元素相等时候返回ｔｒｕｅ
      * 但是我们可以传入自定义的比较函数
      * 
      */
-    mylist1.erase(std::unique(mylist1.begin(), //适用所有container
-                              mylist1.end(), is_similar),
-                  mylist1.end());
-    for (const int &d : mylist1)
-    {
-      cout << d << " ";
-    }
-    cout << "\n";
-
-    mylist1.push_back(100);
-    mylist1.push_back(200);
-    mylist1.push_back(300);
-    mylist1.remove(100);
-    mylist1.remove(200);
-    for (const int &d : mylist1)
-    {
-      cout << d << " ";
-    }
-    cout << "\n";
-    mylist1.push_back(1000);
-    mylist1.push_back(2000);
-    mylist1.push_back(3000);
-    auto comp_remove = [](const int &a) -> bool {
-      return (a > 1000);
-    };
-    mylist1.remove_if(comp_remove);
-    cout << "remove the element bigger than 1000\n";
-    for (const int &d : mylist1)
-    {
-      cout << d << " ";
-    }
-    cout << "\n";
+  mylist1.erase(std::unique(mylist1.begin(), //适用所有container
+                            mylist1.end(), is_similar),
+                mylist1.end());
+  for (const int &d : mylist1)
+  {
+    cout << d << " ";
   }
+  cout << "\n";
+
+  mylist1.push_back(100);
+  mylist1.push_back(200);
+  mylist1.push_back(300);
+  mylist1.remove(100);
+  mylist1.remove(200);
+  for (const int &d : mylist1)
+  {
+    cout << d << " ";
+  }
+  cout << "\n";
+  mylist1.push_back(1000);
+  mylist1.push_back(2000);
+  mylist1.push_back(3000);
+  auto comp_remove = [](const int &a) -> bool {
+    return (a > 1000);
+  };
+  mylist1.remove_if(comp_remove);
+  cout << "remove the element bigger than 1000\n";
+  for (const int &d : mylist1)
+  {
+    cout << d << " ";
+  }
+  cout << "\n";
+}
